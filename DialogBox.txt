@@ -1,0 +1,106 @@
+;AUTOLISP CODING STARTS HERE
+(prompt "\nType TEST_DCL2 to run.....")
+(defun TEST_DCL2 ( / dcl_id)
+(setq dcl_id (load_dialog "D:/AUTOCAD_CODE_XIXIXD/WEEK_2/DCL/tuesday "))
+(if (not (new_dialog "test_dcl2" dcl_id))
+(exit )
+);if
+(if (not BigR) (setq BigR 100))
+
+
+(set_tile "BigR" (rtos BigR 2 2))
+(set_tile "lilr" "25")
+(set_tile "br" "30")
+
+(action_tile "accept" "(val1)")
+(start_dialog)
+(unload_dialog dcl_id)
+
+
+(print BigR)
+(print lilr)
+(print br)
+(princ)
+);defun
+-----------------------
+(defun val1 ()
+
+(setq BigR (atof(get_tile "BigR")))
+(setq lilr (atof(get_tile "lilr")))
+(setq br (atoi(get_tile "br")))
+
+(done_dialog)
+);defun
+
+
+
+
+(defun C:lmao ()
+(setq IP (getpoint "\nCenter point: "))
+(TEST_DCL2)
+(setq p1 (polar ip 0 (- BigR lilr)))
+(setq pstart (polar ip 0 BigR))
+(command "circle" IP BigR ""
+"circle" p1 lilr "")
+
+(cspiral IP BigR lilr pstart)
+
+);end of defun
+
+(defun cspiral (IP BigR lilr pstart)
+
+(getsystvar)
+
+(setq ang 0.0)
+(setq repeatme br)
+(turnofsyst)
+
+(command "pline" pstart) ; start spiral from base point and...
+(princ br)
+
+(repeat (+ repeatme 1)
+
+(setq hahax (+ (* (- BigR lilr) (cos ang)) (* lilr (cos (* (/ (- BigR lilr) lilr) ang)))))
+
+(setq hahay (- (* (- BigR lilr) (sin ang)) (* lilr (sin (* (/ (- BigR lilr) lilr) ang)))))
+(setq ang (+ ang (/ (* 2 pi) repeatme)))
+
+(setq tp (list (+ (car IP) hahax) (+ (car(cdr IP)) hahay)))
+
+(command tp) ; continue to the next point...
+
+)
+
+
+(command) ; until done.
+
+(setsystvar)
+
+);end defun cspiral
+
+(defun getsystvar ()
+(setq cs (getvar "cmdecho") ; save old cmdecho
+
+oldsnap (getvar "osmode")
+
+)
+
+) ;end of defun
+
+; turn off systems
+
+(defun turnofsyst ()
+
+(setvar "cmdecho" 0) ; turn cmdecho off
+
+(setvar "osmode" 0)
+
+) ;end of defun
+
+(defun setsystvar ()
+
+(setvar "osmode" oldsnap)
+
+(setvar "cmdecho" cs)
+
+)

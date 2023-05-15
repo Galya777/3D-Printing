@@ -1,0 +1,63 @@
+//DCL CODING STARTS HERE
+test_dcl2
+: dialog
+{
+label = "Krugcheta";
+
+
+: edit_box
+{
+label = "BigR: ";
+key = "BigR";
+alignment = centered;
+edit_limit = 3;
+edit_width = 3;
+value = "";
+}
+
+
+//HAHAHA
+
+: edit_box
+{
+label = "lilr: ";
+key = "lilr";
+alignment = centered;
+edit_limit = 3;
+edit_width = 3;
+value = "";
+}
+
+
+//haha
+
+
+
+: edit_box
+{
+label = "NUMBER OF POINTS: ";
+key = "br";
+alignment = centered;
+edit_limit = 3;
+edit_width = 3;
+value = "";
+}
+
+
+
+
+
+: button
+{
+key = "accept";
+label = "OK";
+is_default = true;
+fixed_width = true;
+alignment = centered;
+}
+: errtile
+{
+width = 34;
+}
+}
+//DCL CODING ENDS HERE
